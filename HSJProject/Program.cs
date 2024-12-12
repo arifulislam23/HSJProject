@@ -1,4 +1,12 @@
+using HSJProject.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<HSJProjectContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("OurProjectisHeroConnection") ?? 
+    throw new InvalidOperationException("Sorry DB not found")
+    ));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
