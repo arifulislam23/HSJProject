@@ -82,14 +82,51 @@ namespace HSJProject.Controllers
       
         public IActionResult ContactList()
         {
-            //SELECT * FROM [Contact]
+            //SELECT * FROM Contact
             var data = _context.Contact.ToList();
 
             return View(data);
         }
+        
+        public IActionResult ContactEdit(int? id)
+        {
+            if (id == null)
+                return NotFound();
 
+            //select * from Contact where  Id = 2
+            var contact = _context.Contact.FirstOrDefault(akash => akash.Id == id);
+           
+            return View(contact);
+        }
 
+        [HttpPost]
+        public IActionResult ContactEdit(Contact datamodel)
+        {
 
+            if (datamodel.PhoneNumber != null && datamodel.Name != null && datamodel.Email != null)
+            {
+                _context.Update(datamodel);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("ContactList");
+        }
+
+        public IActionResult ContactDelete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            //select * from Contact where  Id = 2
+            var contact = _context.Contact.FirstOrDefault(akash => akash.Id == id);
+            if(contact == null)
+                return NotFound();
+
+            _context.Remove(contact);
+            _context.SaveChanges();
+
+            return RedirectToAction("ContactList");
+        }
 
     }
 }
