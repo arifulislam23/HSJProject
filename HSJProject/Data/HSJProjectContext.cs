@@ -12,6 +12,7 @@ namespace HSJProject.Data
         }
 
         public DbSet<Contact> Contact { get;set;} = default!;
+        public DbSet<Product> Products { get;set;} = default!;
 
     }
 }
