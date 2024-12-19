@@ -4,6 +4,8 @@
 }
 
 
+@model IEnumerable<HSJProject.DataModels.Product>
+
 <div class="card">
 
     <div class="card-header">
@@ -24,30 +26,53 @@
             <thead class="thead-light">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Is Active</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>twitter</td>
-                </tr>
+                @{
+                    int serial = 1;
+                    foreach(var data in Model)
+                    {
+                        <tr>
+                            <th scope="row">@serial</th>
+                            <td>@data.ProductName</td>
+                            <td>@data.ProductPrice</td>
+                            <td>@data.ProductStock</td>
+                            <td>
+                                <img src="@data.ProductImage" style="width: 5%">
+                            
+                            </td>
+
+
+                            @if (@data.IsActive == true)
+                            {
+                                <td>
+                                    Yes
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    No
+                                </td>
+                            }
+                            <td>
+                                <a  class="btn btn-info">Edit</a>
+                                <a  class="btn btn-danger">Delete</a>
+                            </td>
+                            
+                        </tr>
+                        serial++;
+                    }
+                }
+                
+               
             </tbody>
         </table>
     </div>

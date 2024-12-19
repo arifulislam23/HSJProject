@@ -33,17 +33,6 @@ namespace HSJProject.Controllers
                 Content = "which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't an"
             };
 
-            var products = new List<dynamic>
-            {
-                new {Name="Brown Chair Design",Price= 100.00, Picture ="f1.png"},
-                new {Name="Modern Sofa",Price= 250.00,Picture ="f2.png" },
-                new {Name="Wooden Table",Price= 320.00, Picture ="f3.png"},
-                new {Name="Student Table",Price= 520.00, Picture ="f4.png"},
-                new {Name="Blue Chair Design",Price= 200.00, Picture ="f5.png"},
-                new {Name="Double Bed Design",Price= 870.00, Picture ="f6.png"},
-            };
-
-            ViewData["ProductList"] = products;
 
             ViewBag.AboutUs = "The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.";
 
@@ -55,7 +44,11 @@ namespace HSJProject.Controllers
             };
 
             ViewData["BlogtList"] = blogs;
-            return View();
+
+
+            var AllProduct = _context.Products.Where(obj => obj.IsActive == true && obj.ProductStock > 0).ToList();
+
+            return View(AllProduct);
         }
 
 
@@ -73,7 +66,9 @@ namespace HSJProject.Controllers
             {
                 _context.Add(datamodel);
                 _context.SaveChanges();
+               
             }
+
 
             return RedirectToAction("Contactus");
         }

@@ -1,4 +1,5 @@
 ﻿using HSJProject.Data;
+using HSJProject.DataModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HSJProject.Controllers
@@ -15,11 +16,33 @@ namespace HSJProject.Controllers
 
         public IActionResult ProductList()
         {
-            return View();
+            var ProductList = _context.Products.ToList();
+
+            return View(ProductList);
         }
         public IActionResult ProductCreate()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult ProductCreate(Product ProductData)
+        {
+            try
+            {
+                if (ProductData != null && ProductData.ProductName !=null) {
+                    _context.Add(ProductData);
+                    _context.SaveChanges();
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                return NotFound();
+            }
+
+
+            return View(ProductData);
         }
     }
 }
