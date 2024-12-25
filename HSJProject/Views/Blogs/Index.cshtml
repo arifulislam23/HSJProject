@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Blog Page";
+    Layout = "~/Views/Shared/_EducutLayout.cshtml";
+}
+
+@model IEnumerable<HSJProject.DataModels.Blog>
+
+
+<section class="blog_section layout_padding">
+    <div class="container">
+        <div class="heading_container">
+            <h2>
+                Latest Blog
+            </h2>
+        </div>
+        <div class="row">
+
+            @foreach (var srabon in Model)
+            {
+                <div class="col-md-6 col-lg-4 mx-auto">
+                    <div class="box">
+                        <div class="img-box">
+                            <img src="@srabon.BlogThumbnails" alt="">
+                        </div>
+                        <div class="detail-box">
+                            <h5>
+                                @srabon.BlogTitle
+                            </h5>
+                            <p>
+                                @srabon.BlogContent
+                            </p>
+                            <a href="@Url.Action("Details", "Blog", new { id = srabon.BlogId })">
+                                Read More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+
+        </div>
+    </div>
+</section>
+

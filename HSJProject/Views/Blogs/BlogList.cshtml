@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Blog List";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@model IEnumerable<HSJProject.DataModels.Blog>
+
+<div class="card">
+
+    <div class="card-header">
+        <h3 class="card-title">All Product List</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class=" card-body  ">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Thumbnails</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Content</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int serial = 1;
+                    if(Model != null)
+                    {
+                        foreach (var data in Model)
+                        {
+                            <tr>
+                                <th scope="row">@serial</th>
+                                <td>
+                                    <img src="@data.BlogThumbnails" style="width: 30%">
+
+                                </td>
+                                <td>@data.BlogTitle</td>
+                                <td>@data.BlogContent ...</td>
+
+                                <td>
+                                    <a class="btn btn-info">Edit</a>
+                                    <a class="btn btn-danger">Delete</a>
+                                </td>
+
+                            </tr>
+                            serial++;
+                        }
+                    }
+                  
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
