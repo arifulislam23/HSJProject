@@ -14,6 +14,12 @@ namespace HSJProject.Controllers
             _context = context;
         }
 
+        public IActionResult Furnitures()
+        {
+            var ProductList = _context.Products.ToList();
+
+            return View(ProductList);
+        }
         public IActionResult ProductList()
         {
             var ProductList = _context.Products.ToList();

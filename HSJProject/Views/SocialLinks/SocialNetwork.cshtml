@@ -1,0 +1,91 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Social Network";
+}
+@model HSJProject.DataModels.SocialLink
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="card card-info col-6">
+        <div class="card-header">
+            <h3 class="card-title">
+                Social Network
+            </h3>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label>Platform Name:</label>
+                <input type="text" class="form-control" id="Platform" name="Platform">
+            </div>
+
+            <div class="form-group">
+                <label>Url:</label>
+                <input type="text" class="form-control" id="Url" name="Url">
+            </div>
+
+            <div class="form-group">
+                <label>IconClass:</label>
+                <input type="text" class="form-control" id="IconClass" name="IconClass">
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" id="submitForm" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function () { 
+    
+        $('#submitForm').click(function () { 
+        //alert("hi you clicked submitForm button");
+
+            // var inputtest = $('#Platform').val();
+
+            // console.log(inputtestbyclass);
+            Swal.fire({
+                title: 'Saving...',
+                allowOutsideClick: false, didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            var formData = {
+                Platform: $('#Platform').val(),
+                Url: $('#Url').val(),
+                IconClass: $('#IconClass').val()
+
+            };
+            //console.log(formData);
+
+            $.ajax({
+                url: '/SocialLinks/SaveSocialLink',
+                type: 'POST',
+                data: formData,
+                success: function (obj) {
+                    // Handle success response
+                    Swal.fire({
+                        title: obj.msg,
+                        icon: "success",
+                        draggable: true
+                    });
+                   
+                },
+                error: function (xhr, status, error) {
+                    // Handle error response
+                    alert('Error saving social link.');
+                }
+            });
+
+
+        });
+
+
+    });
+
+</script>
+
+
+ 
+

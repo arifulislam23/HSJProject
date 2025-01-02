@@ -3,6 +3,7 @@ using HSJProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HSJProject.Migrations
 {
     [DbContext(typeof(HSJProjectContext))]
-    partial class HSJProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20250102083416_Add_Isactive")]
+    partial class Add_Isactive
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,6 +110,9 @@ namespace HSJProject.Migrations
                     b.Property<string>("IconClass")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Platform")
                         .IsRequired()

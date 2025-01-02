@@ -1,5 +1,6 @@
 ﻿using HSJProject.Data;
 using HSJProject.DataModels;
+using HSJProject.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HSJProject.Controllers
@@ -36,19 +37,16 @@ namespace HSJProject.Controllers
 
             ViewBag.AboutUs = "The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.";
 
-            var blogs = new List<dynamic>
-            {
-                new {Title="1914 translation by H. Rackham",Content= "The point of using Lorem Ipsum is that it has a more-or-less normal distribution", Picture ="b1.jpg"},
-                new {Title="The standard Lorem Ipsum passage",Content= "Duis aute irure dolor in reprehenderit in sunt in culpa qui officia deserunt laborum.", Picture ="b2.jpg"},
-                new {Title="Cicero in 45 BC",Content= "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit", Picture ="b3.jpg"},
-            };
 
-            ViewData["BlogtList"] = blogs;
+            //viewmodel
+
+            var AllData = new HomePageVM();
+
+            AllData.Blogs = _context.Blog.Take(3).ToList();
+            AllData.Products = _context.Products.Where(obj => obj.IsActive == true && obj.ProductStock > 0).Take(3).ToList();
 
 
-            var AllProduct = _context.Products.Where(obj => obj.IsActive == true && obj.ProductStock > 0).ToList();
-
-            return View(AllProduct);
+            return View(AllData);
         }
 
 
